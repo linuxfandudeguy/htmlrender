@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Render HTML from URL</title>
+<script>
+  function renderHTML() {
+    var url = prompt("Enter the URL of the website you want to render:");
+    if (!url) {
+      alert("URL cannot be empty!");
+      return;
+    }
+    
+    fetch('https://uncors.vercel.app/?url=' + encodeURIComponent(url))
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('output').innerHTML = data;
+      })
+      .catch(error => {
+        alert("Error fetching data from " + url);
+        console.error('Error:', error);
+      });
+  }
+</script>
+</head>
+<body onload="renderHTML()">
+<div id="output"></div>
+</body>
+</html>
